@@ -76,6 +76,65 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 // EOL -> de acordo com o doc no drive. Possivelmente a mesma coisa
 [ \r\n\t\f]    { }
 
+//Expressões em geral, serão modificadas ainda
+
+/*Palavras reservadas para linguagem*/
+"return"      		{ return new Token(Token.RETURN, yyline, yycolumn); }
+"this"      		{ return new Token(Token.THIS, yyline, yycolumn); }
+"class"			{ return new Token (Token.CLASS, yyline, yycolumn); }
+"public"			{ return new Token (Token.PUBLIC, yyline, yycolumn); }
+"static"      		{ return new Token(Token.STATIC, yyline, yycolumn); }
+"void"			{ return new Token (Token.VOID, yyline, yycolumn); }
+"main"			{ return new Token (Token.MAIN, yyline, yycolumn); }
+"extends"      		{ return new Token(Token.EXTENDS, yyline, yycolumn); }
+"new"			{ return new Token (Token.NEW, yyline, yycolumn); }
+"length"			{ return new Token (Token.LENGTH, yyline, yycolumn); }
+"System.Out.Println"	{ return new Token (Token.PRINTLN, yyline, yycolumn); }
+
+/*Tipo dos dados*/
+"boolean"      		{ return new Token(Token.BOOLEAN, yyline, yycolumn); }
+"int"			{ return new Token (Token.INT, yyline, yycolumn); }
+"string"			{ return new Token (Token.STRING, yyline, yycolumn); }
+
+/*Operadores*/
+"if"			{ return new Token (Token.IF, yyline, yycolumn); }
+"else"			{ return new Token (Token.ELSE, yyline, yycolumn); }
+"while"			{ return new Token (Token.WHILE, yyline, yycolumn); }
+
+/*Valores booleanos*/
+"true"			{ return new Token (Token.TRUE, yyline, yycolumn); }
+"false"			{ return new Token (Token.FALSE, yyline, yycolumn); }
+
+/*Tipos de identificadores*/
+{ID}			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
+{NUM}			{ return new Token(Token.NUM, yytext(), yyline, yycolumn); }
+
+/*Espacos em branco e comentarios*/
+{BRANCO}+		{ /*ignorar espaços em branco*/ }
+{COMENTARIO}		{ /*ignorar comentarios*/ }
+
+/*Operadores*/
+"+"    		  	{ return new Token(Token.PLUS, yyline, yycolumn); }
+"-"			{ return new Token (Token.MINUS, yyline, yycolumn); }
+"="			{ return new Token (Token.EQ, yyline, yycolumn); }
+"!"    		  	{ return new Token(Token.NOT, yyline, yycolumn); }
+"*"			{ return new Token (Token.MULT, yyline, yycolumn); }
+"&&"			{ return new Token (Token.AND, yyline, yycolumn); }
+"<"    		  	{ return new Token(Token.LT, yyline, yycolumn); } // LT -less than
+
+/*Separadores*/
+"("      			{ return new Token(Token.LPAREN, yyline, yycolumn); }
+")"			{ return new Token (Token.RPAREN, yyline, yycolumn); }
+";"			{ return new Token (Token.SEMICOLON, yyline, yycolumn); }
+","     		 	{ return new Token(Token.COMMA, yyline, yycolumn); }
+"."			{ return new Token (Token.DOT, yyline, yycolumn); }
+"{"			{ return new Token (Token.LBRACE, yyline, yycolumn); }
+"}"      			{ return new Token(Token.RBRACE, yyline, yycolumn); }
+"["			{ return new Token (Token.LBRACK, yyline, yycolumn); }
+"]"			{ return new Token (Token.RBRACK, yyline, yycolumn); }
+
+
+
 // Exemplo de regra
 "boolean"      { return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
 
