@@ -1,6 +1,6 @@
-/* 
-* A primeira seÃ§Ã£o da especificaÃ§Ã£o vai atÃ© o primeiro %%,
-* e consiste de cÃ³digo Java que Ã© copiado ao pÃ© da letra
+/*
+* A primeira seção da especificação vai até o primeiro %%,
+* e consiste de código Java que é copiado ao pé da letra
 *
 */
 import java.io.StringReader;
@@ -11,22 +11,22 @@ import java.io.IOException;
 %%
 
 /*
-* A segunda seÃ§Ã£o vai atÃ© o prÃ³ximo %%, e sÃ£o diversos parÃ¢metros
-* de configuraÃ§Ã£o, alÃ©m de cÃ³digo Java copiado para o corpo da
-* classe do analisador lÃ©xico
+* A segunda seção vai até o próximo %%, e são diversos parâmetros
+* de configuração, além de código Java copiado para o corpo da
+* classe do analisador léxico
 *
 */
 
 %class Scanner          // nome da classe do analisador
-%public                 // classe deve ser pÃºblica
-%line                   // guarde nÃºmero da linha em yyline
-%column                 // guarde nÃºmero da coluna em yycolumn
-%function nextToken     // nome do mÃ©todo que vai fornecer um token
+%public                 // classe deve ser pública
+%line                   // guarde número da linha em yyline
+%column                 // guarde número da coluna em yycolumn
+%function nextToken     // nome do método que vai fornecer um token
 %type Token             // classe usado para tokens
 
-// CÃ³digo Java entre %{ e %} Ã© copiado pro corpo da classe
+// Código Java entre %{ e %} é copiado pro corpo da classe
 // do analisador
-%{ 
+%{
 
 	public Scanner() { }
 
@@ -34,7 +34,7 @@ import java.io.IOException;
 	    // inicializa entrada pro analisador
 		yyreset(new StringReader(input));
 	}
-	
+
 	public List<Token> tokens() throws IOException {
 		List<Token> tokens = new ArrayList<Token>();
 		Token tok = nextToken();
@@ -51,13 +51,29 @@ import java.io.IOException;
 %%
 
 /*
-* A Ãºltima seÃ§Ã£o contÃ©m as regras lÃ©xicas, cada regra Ã© um
-* par com uma expressÃ£o regular e um trecho de cÃ³digo Java
+* A última seção contém as regras léxicas, cada regra é um
+* par com uma expressão regular e um trecho de código Java
 * entre { e }.
 *
 */
 
-// EspaÃ§os sÃ£o ignorados
+/*========= Padrões Utilizados ===========*/
+word = [a-zA-Z]
+digit = [0-9]
+NUM = 0|[1-9][0-9]*
+ID = [a-zA-Z_][a-zA-Z0-9_]*
+
+/*======== Comentários ==============*/
+
+//Pelo regex, esse de baixo funcionou, mas é tão complexo que eu to na dúvida
+// general_coment = \/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$
+
+//Aparentemente usando o site de regex esse de baixo funciona para /*qualquer coisa escrita*/
+block_coment = \/\*(\*(?!\/)|[^*])*\*\/
+
+
+// Espaços são ignorados
+// EOL -> de acordo com o doc no drive. Possivelmente a mesma coisa
 [ \r\n\t\f]    { }
 
 // Exemplo de regra
@@ -70,8 +86,7 @@ import java.io.IOException;
 // Regra para EOF
 <<EOF>>      { return new Token(Token.EOF, "<<EOF>>", yyline, yycolumn); }
 
-// Erros lÃ©xicos 
-.            { throw new RuntimeException("erro lÃ©xico, linha: " + 
-               (yyline+1) + ", coluna : " + (yycolumn+1) + ", char: " + 
+// Erros léxicos
+.            { throw new RuntimeException("erro léxico, linha: " +
+               (yyline+1) + ", coluna : " + (yycolumn+1) + ", char: " +
                yytext()); }
-
