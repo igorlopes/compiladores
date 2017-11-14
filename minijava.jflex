@@ -1,6 +1,6 @@
 /*
-* A primeira seção da especificação vai até o primeiro %%,
-* e consiste de código Java que é copiado ao pé da letra
+* A primeira se??o da especifica??o vai at? o primeiro %%,
+* e consiste de c?digo Java que ? copiado ao p? da letra
 *
 */
 import java.io.StringReader;
@@ -11,20 +11,20 @@ import java.io.IOException;
 %%
 
 /*
-* A segunda seção vai até o próximo %%, e são diversos parâmetros
-* de configuração, além de código Java copiado para o corpo da
-* classe do analisador léxico
+* A segunda se??o vai at? o pr?ximo %%, e s?o diversos par?metros
+* de configura??o, al?m de c?digo Java copiado para o corpo da
+* classe do analisador l?xico
 *
 */
 
 %class Scanner          // nome da classe do analisador
-%public                 // classe deve ser pública
-%line                   // guarde número da linha em yyline
-%column                 // guarde número da coluna em yycolumn
-%function nextToken     // nome do método que vai fornecer um token
+%public                 // classe deve ser p?blica
+%line                   // guarde n?mero da linha em yyline
+%column                 // guarde n?mero da coluna em yycolumn
+%function nextToken     // nome do m?todo que vai fornecer um token
 %type Token             // classe usado para tokens
 
-// Código Java entre %{ e %} é copiado pro corpo da classe
+// C?digo Java entre %{ e %} ? copiado pro corpo da classe
 // do analisador
 %{
 
@@ -51,32 +51,32 @@ import java.io.IOException;
 %%
 
 /*
-* A última seção contém as regras léxicas, cada regra é um
-* par com uma expressão regular e um trecho de código Java
+* A ?ltima se??o cont?m as regras l?xicas, cada regra ? um
+* par com uma express?o regular e um trecho de c?digo Java
 * entre { e }.
 *
 */
 
-/*========= Padrões Utilizados ===========*/
+/*========= Padr?es Utilizados ===========*/
 word = [a-zA-Z]
 digit = [0-9]
 NUM = 0|[1-9][0-9]*
 ID = [a-zA-Z_][a-zA-Z0-9_]*
 
-/*======== Comentários ==============*/
+/*======== Coment?rios ==============*/
 
-//Pelo regex, esse de baixo funcionou, mas é tão complexo que eu to na dúvida
+//Pelo regex, esse de baixo funcionou, mas ? t?o complexo que eu to na d?vida
 // general_coment = \/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$
 
 //Aparentemente usando o site de regex esse de baixo funciona para /*qualquer coisa escrita*/
 block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 
 
-// Espaços são ignorados
+// Espa?os s?o ignorados
 // EOL -> de acordo com o doc no drive. Possivelmente a mesma coisa
 [ \r\n\t\f]    { }
 
-//Expressões em geral, serão modificadas ainda
+//Express?es em geral, ser?o modificadas ainda
 
 /*Palavras reservadas para linguagem*/
 "return"      		{ return new Token(Token.RETURN, yyline, yycolumn); }
@@ -110,7 +110,7 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 {NUM}			{ return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
 /*Espacos em branco e comentarios*/
-{BRANCO}+		{ /*ignorar espaços em branco*/ }
+{BRANCO}+		{ /*ignorar espa?os em branco*/ }
 {COMENTARIO}		{ /*ignorar comentarios*/ }
 
 /*Operadores*/
@@ -145,7 +145,7 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 // Regra para EOF
 <<EOF>>      { return new Token(Token.EOF, "<<EOF>>", yyline, yycolumn); }
 
-// Erros léxicos
-.            { throw new RuntimeException("erro léxico, linha: " +
+// Erros l?xicos
+.            { throw new RuntimeException("erro l?xico, linha: " +
                (yyline+1) + ", coluna : " + (yycolumn+1) + ", char: " +
                yytext()); }
