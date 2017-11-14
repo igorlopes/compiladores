@@ -35,10 +35,8 @@
 %left	'*' '/'
 %right NEW
 %right	'!'
-%right IF
-
-%nonassoc noelse
-%nonassoc ELSE
+%left IF
+%right ELSE
 
 %%
 
