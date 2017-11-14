@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 // Output created by jacc on Tue Nov 14 17:30:26 BRST 2017
+=======
+// Output created by jacc on Tue Nov 14 17:26:33 BRST 2017
+>>>>>>> Stashed changes
 
 
 class Parser implements Tokens {
