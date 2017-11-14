@@ -57,19 +57,6 @@ import java.io.IOException;
 *
 */
 
-/*========= Padr?es Utilizados ===========*/
-word = [a-zA-Z]
-digit = [0-9]
-NUM = 0|[1-9][0-9]*
-ID = [a-zA-Z_][a-zA-Z0-9_]*
-
-/*======== Coment?rios ==============*/
-
-//Pelo regex, esse de baixo funcionou, mas ? t?o complexo que eu to na d?vida
-// general_coment = \/\*[\s\S]*?\*\/|([^\\:]|^)\/\/.*$
-
-//Aparentemente usando o site de regex esse de baixo funciona para /*qualquer coisa escrita*/
-block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 
 
 // Espa?os s?o ignorados
@@ -89,12 +76,13 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 "extends"      		{ return new Token(Token.EXTENDS, yytext(), yyline, yycolumn); }
 "new"			    { return new Token (Token.NEW, yytext(), yyline, yycolumn); }
 "length"			{ return new Token (Token.LENGTH, yytext(), yyline, yycolumn); }
-"System.Out.Println"	{ return new Token (Token.PRINTLN, yytext(), yyline, yycolumn); }
+"null"			    { return new Token (Token.NULL, yytext(), yyline, yycolumn); }
+"System.out.println"	{ return new Token (Token.PRINTLN, yytext(), yyline, yycolumn); }
 
 /*Tipo dos dados*/
 "boolean"      		{ return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
-"int"			{ return new Token (Token.INT, yytext(), yyline, yycolumn); }
-"string"			{ return new Token (Token.STRING, yytext(), yyline, yycolumn); }
+"int"			    { return new Token (Token.INT, yytext(), yyline, yycolumn); }
+"String"			{ return new Token (Token.STRING, yytext(), yyline, yycolumn); }
 
 /*Operadores*/
 "if"			{ return new Token (Token.IF, yytext(), yyline, yycolumn); }
@@ -106,32 +94,35 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 "false"			{ return new Token (Token.FALSE, yytext(), yyline, yycolumn); }
 
 /*Tipos de identificadores*/
-{ID}			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
-{NUM}			{ return new Token(Token.NUM, yytext(), yyline, yycolumn); }
+[a-zA-Z_][a-zA-Z0-9_]*			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
+0|[1-9][0-9]*			        { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
 /*Espacos em branco e comentarios*/
-{BRANCO}+		{ /*ignorar espa?os em branco*/ }
-{COMENTARIO}		{ /*ignorar comentarios*/ }
+\/\*(.|[\r\n])*?\*\/	{ /*ignorar comentarios bloco*/ }
+\/\/[^\r\n]*		{ /*ignorar comentarios //*/ }
+
 
 /*Operadores*/
-"+"    		  	{ return new Token(Token.PLUS, yytext(), yyline, yycolumn); }
-"-"		    	{ return new Token (Token.MINUS, yytext(), yyline, yycolumn); }
-"="		    	{ return new Token (Token.EQ, yytext(), yyline, yycolumn); }
-"!"    		  	{ return new Token(Token.NOT, yytext(), yyline, yycolumn); }
-"*"		    	{ return new Token (Token.MULT, yytext(), yyline, yycolumn); }
+"+"    		  	{ return new Token('+', yytext(), yyline, yycolumn); }
+"-"		    	{ return new Token ('-', yytext(), yyline, yycolumn); }
+"="		    	{ return new Token ('=', yytext(), yyline, yycolumn); }
+"=="		    { return new Token (Token.EQ, yytext(), yyline, yycolumn); }
+"!="		    { return new Token (Token.NEQ, yytext(), yyline, yycolumn); }
+"!"    		  	{ return new Token(Token.NEG, yytext(), yyline, yycolumn); }
+"*"		    	{ return new Token ('*', yytext(), yyline, yycolumn); }
 "&&"			{ return new Token (Token.AND, yytext(), yyline, yycolumn); }
-"<"    		  	{ return new Token(Token.LT, yytext(), yyline, yycolumn); } // LT -less than
+"<"    		  	{ return new Token('<', yytext(), yyline, yycolumn); }
 
 /*Separadores*/
-"("      			{ return new Token(Token.LPAREN, yytext(), yyline, yycolumn); }
-")"		          	{ return new Token (Token.RPAREN, yytext(), yyline, yycolumn); }
-";"		    	    { return new Token (Token.SEMICOLON, yytext(), yyline, yycolumn); }
-","     		 	{ return new Token(Token.COMMA, yytext(), yyline, yycolumn); }
-"."			        { return new Token (Token.DOT, yytext(), yyline, yycolumn); }
-"{"			        { return new Token (Token.LBRACE, yytext(), yyline, yycolumn); }
-"}"      			{ return new Token(Token.RBRACE, yytext(), yyline, yycolumn); }
-"["		        	{ return new Token (Token.LBRACK, yytext(), yyline, yycolumn); }
-"]"		        	{ return new Token (Token.RBRACK, yytext(), yyline, yycolumn); }
+"("      			{ return new Token('(', yytext(), yyline, yycolumn); }
+")"		          	{ return new Token (')', yytext(), yyline, yycolumn); }
+";"		    	    { return new Token (';', yytext(), yyline, yycolumn); }
+","     		 	{ return new Token(',', yytext(), yyline, yycolumn); }
+"."			        { return new Token ('.', yytext(), yyline, yycolumn); }
+"{"			        { return new Token ('{', yytext(), yyline, yycolumn); }
+"}"      			{ return new Token('}', yytext(), yyline, yycolumn); }
+"["		        	{ return new Token ('[', yytext(), yyline, yycolumn); }
+"]"		        	{ return new Token (']', yytext(), yyline, yycolumn); }
 
 
 // Identificadores e numerais devem ser retornados com
@@ -142,6 +133,6 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 <<EOF>>      { return new Token(Token.EOF, "<<EOF>>", yyline, yycolumn); }
 
 // Erros l?xicos
-.            { throw new RuntimeException("erro l?xico, linha: " +
+.            { throw new RuntimeException("erro lexico, linha: " +
                (yyline+1) + ", coluna : " + (yycolumn+1) + ", char: " +
                yytext()); }
