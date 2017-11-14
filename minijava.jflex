@@ -94,8 +94,8 @@ import java.io.IOException;
 "false"			{ return new Token (Token.FALSE, yytext(), yyline, yycolumn); }
 
 /*Tipos de identificadores*/
-[a-zA-Z_][a-zA-Z0-9_]*			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
-0|[1-9][0-9]*			        { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
+[a-zA-Z][a-zA-Z0-9_]*			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
+[0-9]+			        { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
 /*Espacos em branco e comentarios*/
 \/\*(.|[\r\n])*?\*\/	{ /*ignorar comentarios bloco*/ }
@@ -108,7 +108,7 @@ import java.io.IOException;
 "="		    	{ return new Token ('=', yytext(), yyline, yycolumn); }
 "=="		    { return new Token (Token.EQ, yytext(), yyline, yycolumn); }
 "!="		    { return new Token (Token.NEQ, yytext(), yyline, yycolumn); }
-"!"    		  	{ return new Token(Token.NEG, yytext(), yyline, yycolumn); }
+"!"    		  	{ return new Token('!', yytext(), yyline, yycolumn); }
 "*"		    	{ return new Token ('*', yytext(), yyline, yycolumn); }
 "&&"			{ return new Token (Token.AND, yytext(), yyline, yycolumn); }
 "<"    		  	{ return new Token('<', yytext(), yyline, yycolumn); }
