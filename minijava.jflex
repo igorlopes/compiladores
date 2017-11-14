@@ -79,31 +79,31 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 //Express?es em geral, ser?o modificadas ainda
 
 /*Palavras reservadas para linguagem*/
-"return"      		{ return new Token(Token.RETURN, yyline, yycolumn); }
-"this"      		{ return new Token(Token.THIS, yyline, yycolumn); }
-"class"			{ return new Token (Token.CLASS, yyline, yycolumn); }
-"public"			{ return new Token (Token.PUBLIC, yyline, yycolumn); }
-"static"      		{ return new Token(Token.STATIC, yyline, yycolumn); }
-"void"			{ return new Token (Token.VOID, yyline, yycolumn); }
-"main"			{ return new Token (Token.MAIN, yyline, yycolumn); }
-"extends"      		{ return new Token(Token.EXTENDS, yyline, yycolumn); }
-"new"			{ return new Token (Token.NEW, yyline, yycolumn); }
-"length"			{ return new Token (Token.LENGTH, yyline, yycolumn); }
-"System.Out.Println"	{ return new Token (Token.PRINTLN, yyline, yycolumn); }
+"return"      		{ return new Token(Token.RETURN, yytext(), yyline, yycolumn); }
+"this"      		{ return new Token(Token.THIS, yytext(), yyline, yycolumn); }
+"class"		    	{ return new Token (Token.CLASS, yytext(), yyline, yycolumn); }
+"public"			{ return new Token (Token.PUBLIC, yytext(), yyline, yycolumn); }
+"static"      		{ return new Token(Token.STATIC, yytext(), yyline, yycolumn); }
+"void"		    	{ return new Token (Token.VOID, yytext(), yyline, yycolumn); }
+"main"		    	{ return new Token (Token.MAIN, yytext(), yyline, yycolumn); }
+"extends"      		{ return new Token(Token.EXTENDS, yytext(), yyline, yycolumn); }
+"new"			    { return new Token (Token.NEW, yytext(), yyline, yycolumn); }
+"length"			{ return new Token (Token.LENGTH, yytext(), yyline, yycolumn); }
+"System.Out.Println"	{ return new Token (Token.PRINTLN, yytext(), yyline, yycolumn); }
 
 /*Tipo dos dados*/
-"boolean"      		{ return new Token(Token.BOOLEAN, yyline, yycolumn); }
-"int"			{ return new Token (Token.INT, yyline, yycolumn); }
-"string"			{ return new Token (Token.STRING, yyline, yycolumn); }
+"boolean"      		{ return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
+"int"			{ return new Token (Token.INT, yytext(), yyline, yycolumn); }
+"string"			{ return new Token (Token.STRING, yytext(), yyline, yycolumn); }
 
 /*Operadores*/
-"if"			{ return new Token (Token.IF, yyline, yycolumn); }
-"else"			{ return new Token (Token.ELSE, yyline, yycolumn); }
-"while"			{ return new Token (Token.WHILE, yyline, yycolumn); }
+"if"			{ return new Token (Token.IF, yytext(), yyline, yycolumn); }
+"else"			{ return new Token (Token.ELSE, yytext(), yyline, yycolumn); }
+"while"			{ return new Token (Token.WHILE, yytext(), yyline, yycolumn); }
 
 /*Valores booleanos*/
-"true"			{ return new Token (Token.TRUE, yyline, yycolumn); }
-"false"			{ return new Token (Token.FALSE, yyline, yycolumn); }
+"true"			{ return new Token (Token.TRUE, yytext(), yyline, yycolumn); }
+"false"			{ return new Token (Token.FALSE, yytext(), yyline, yycolumn); }
 
 /*Tipos de identificadores*/
 {ID}			{ return new Token(Token.ID, yytext(), yyline, yycolumn); }
@@ -114,29 +114,25 @@ block_coment = \/\*(\*(?!\/)|[^*])*\*\/
 {COMENTARIO}		{ /*ignorar comentarios*/ }
 
 /*Operadores*/
-"+"    		  	{ return new Token(Token.PLUS, yyline, yycolumn); }
-"-"			{ return new Token (Token.MINUS, yyline, yycolumn); }
-"="			{ return new Token (Token.EQ, yyline, yycolumn); }
-"!"    		  	{ return new Token(Token.NOT, yyline, yycolumn); }
-"*"			{ return new Token (Token.MULT, yyline, yycolumn); }
-"&&"			{ return new Token (Token.AND, yyline, yycolumn); }
-"<"    		  	{ return new Token(Token.LT, yyline, yycolumn); } // LT -less than
+"+"    		  	{ return new Token(Token.PLUS, yytext(), yyline, yycolumn); }
+"-"		    	{ return new Token (Token.MINUS, yytext(), yyline, yycolumn); }
+"="		    	{ return new Token (Token.EQ, yytext(), yyline, yycolumn); }
+"!"    		  	{ return new Token(Token.NOT, yytext(), yyline, yycolumn); }
+"*"		    	{ return new Token (Token.MULT, yytext(), yyline, yycolumn); }
+"&&"			{ return new Token (Token.AND, yytext(), yyline, yycolumn); }
+"<"    		  	{ return new Token(Token.LT, yytext(), yyline, yycolumn); } // LT -less than
 
 /*Separadores*/
-"("      			{ return new Token(Token.LPAREN, yyline, yycolumn); }
-")"			{ return new Token (Token.RPAREN, yyline, yycolumn); }
-";"			{ return new Token (Token.SEMICOLON, yyline, yycolumn); }
-","     		 	{ return new Token(Token.COMMA, yyline, yycolumn); }
-"."			{ return new Token (Token.DOT, yyline, yycolumn); }
-"{"			{ return new Token (Token.LBRACE, yyline, yycolumn); }
-"}"      			{ return new Token(Token.RBRACE, yyline, yycolumn); }
-"["			{ return new Token (Token.LBRACK, yyline, yycolumn); }
-"]"			{ return new Token (Token.RBRACK, yyline, yycolumn); }
+"("      			{ return new Token(Token.LPAREN, yytext(), yyline, yycolumn); }
+")"		          	{ return new Token (Token.RPAREN, yytext(), yyline, yycolumn); }
+";"		    	    { return new Token (Token.SEMICOLON, yytext(), yyline, yycolumn); }
+","     		 	{ return new Token(Token.COMMA, yytext(), yyline, yycolumn); }
+"."			        { return new Token (Token.DOT, yytext(), yyline, yycolumn); }
+"{"			        { return new Token (Token.LBRACE, yytext(), yyline, yycolumn); }
+"}"      			{ return new Token(Token.RBRACE, yytext(), yyline, yycolumn); }
+"["		        	{ return new Token (Token.LBRACK, yytext(), yyline, yycolumn); }
+"]"		        	{ return new Token (Token.RBRACK, yytext(), yyline, yycolumn); }
 
-
-
-// Exemplo de regra
-"boolean"      { return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
 
 // Identificadores e numerais devem ser retornados com
 // return new Token(Token.ID, yytext(), yyline, yycolumn)
